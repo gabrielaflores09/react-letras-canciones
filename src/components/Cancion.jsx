@@ -7,11 +7,14 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     color:'#15BB9D',
     borderBlockEndStyle: 'solid',
+    width: 250,
   },
   parrafo: {
     marginBottom: 8,
-  }
-
+  },
+  letra: {
+    whiteSpace:'pre-wrap',
+  },
 }));
 
 const Cancion = ({letra}) => {
@@ -24,7 +27,7 @@ const Cancion = ({letra}) => {
             <Divider
               className={classes.divider}
             />
-            <p>{letra}</p>
+            <p className={classes.letra}>{letra}</p>
         </Container> 
      );
 }

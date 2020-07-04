@@ -1,6 +1,7 @@
 import React,{ Fragment, useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from './components/Menu';
+import Artista from './components/Artista';
 import Cancion from './components/Cancion';
 import {Grid} from '@material-ui/core';
 
@@ -20,23 +21,42 @@ function App() {
 
   const [busquedaLetra, guardarBusqLetra] = useState({});
   const [letra, guardarLetra] = useState('');
+  const [infoArtista, guardarInfoArtista] = useState({});
+  const [valida, guardarValida] = useState(false);
 
   const {artista, cancion}= busquedaLetra;
 
   const consultarAPILetra = async () =>{
-    const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
-    
-    const resp_api = await fetch(url);
-    const letra_api = await resp_api.json();
+    const url_letra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+    const url_artista= `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artista}`;
 
-    guardarLetra(letra_api.lyrics)
+    const [letra_can, info_art] = await Promise.all([
+      fetch(url_letra),
+      fetch(url_artista)
+    ]);
+
+    const resp_letra = await letra_can.json();
+    const resp_artista = await info_art.json();
+
+    // console.log("LETRA")
+    // console.log(resp_letra.lyrics)
+
+    // console.log("ARTISTA")
+    // console.log(resp_artista.artists[0]);
+     
+    guardarLetra(resp_letra.lyrics)
+    guardarInfoArtista(resp_artista.artists[0]);
+    guardarValida(true);
+
   }
+
 
   useEffect(()=>{
     if(Object.keys(busquedaLetra).length === 0) return;
     consultarAPILetra();
 
-  },[busquedaLetra])
+  },[busquedaLetra,infoArtista])
+ 
 
   return (
       <Fragment>
@@ -47,25 +67,29 @@ function App() {
             <Grid 
               container
             >
-              <Grid 
-                item xs={12} 
-                sm={6} 
-                className={classes.gItem}
-              >
-                <Cancion
-
-                />
-              </Grid>
-              <Grid 
-                item xs={12} 
-                sm={6} 
-                className={classes.gItem}
-              >
-                <Cancion
-                  letra={letra}
-
-                />
-              </Grid>
+            {valida? 
+              <Fragment>
+                <Grid 
+                  item xs={12} 
+                  sm={6} 
+                  className={classes.gItem}
+                >
+                  <Artista
+                    infoArtista={infoArtista}
+                  />
+                </Grid>
+          
+                <Grid 
+                  item xs={12} 
+                  sm={6} 
+                  className={classes.gItem}
+                >
+                  <Cancion
+                    letra={letra}
+                  />
+                </Grid>
+              </Fragment> 
+            : null }
             </Grid>
           </div>
                 

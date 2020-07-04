@@ -8,12 +8,8 @@ const useStyles = makeStyles((theme) => ({
           margin: theme.spacing(2),
         },
     },
-    textField :{
-        // width: '35ch',
-    },
     appBar: {
       textAlign: 'center',
-    //   backgroundColor:'#12A489',
     backgroundColor: '#15BB9D',
       alignItems: 'center',
     },
@@ -67,7 +63,6 @@ const Menu = ({guardarBusqLetra}) => {
                 >
                     <TextField 
                         rows={4}
-                        className={classes.textField} 
                         name="artista" 
                         id="outlined-basic" 
                         label="Artista"
@@ -77,7 +72,6 @@ const Menu = ({guardarBusqLetra}) => {
                         required    
                     />
                     <TextField 
-                        className={classes.textField} 
                         name="cancion" 
                         id="outlined-basic" 
                         label="Cancion"
