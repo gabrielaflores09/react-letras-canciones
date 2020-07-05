@@ -23,7 +23,7 @@ const Cancion = ({letra}) => {
 
     return (
         <Container>
-            <p className={classes.parrafo}>Letra Canción</p>
+            <p className={classes.parrafo}>Letra</p>
             <Divider
               className={classes.divider}
             />

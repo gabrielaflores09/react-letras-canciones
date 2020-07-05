@@ -1,6 +1,5 @@
 import React from 'react';
 import {Alert } from '@material-ui/lab';
-import {SentimentVeryDissatisfied} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
