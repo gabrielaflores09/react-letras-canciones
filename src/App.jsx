@@ -4,6 +4,7 @@ import Menu from './components/Menu';
 import Artista from './components/Artista';
 import Cancion from './components/Cancion';
 import {Grid} from '@material-ui/core';
+import Error from './components/Error';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,7 @@ function App() {
   const [letra, guardarLetra] = useState('');
   const [infoArtista, guardarInfoArtista] = useState({});
   const [valida, guardarValida] = useState(false);
+  const [error, guardarError] = useState(false);
 
   const {artista, cancion}= busquedaLetra;
 
@@ -42,12 +44,20 @@ function App() {
     // console.log(resp_letra.lyrics)
 
     // console.log("ARTISTA")
-    // console.log(resp_artista.artists[0]);
-     
-    guardarLetra(resp_letra.lyrics)
-    guardarInfoArtista(resp_artista.artists[0]);
-    guardarValida(true);
+    // console.log(resp_artista);
+    // console.log(resp_letra.lyrics === null, resp_artista.artists === null)
 
+    if(resp_letra.lyrics === null || resp_artista.artists === null){
+      guardarError(true);
+      return;
+      
+    }else{
+      guardarLetra(resp_letra.lyrics)
+      guardarInfoArtista(resp_artista.artists[0]);
+      guardarValida(true);
+      guardarError(false);
+    }
+  
   }
 
 
@@ -64,6 +74,7 @@ function App() {
            guardarBusqLetra={guardarBusqLetra}
           />
           <div className={classes.root}>
+            {error? <Error/> : null }
             <Grid 
               container
             >
