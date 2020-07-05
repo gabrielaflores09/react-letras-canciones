@@ -40,13 +40,6 @@ function App() {
     const resp_letra = await letra_can.json();
     const resp_artista = await info_art.json();
 
-    // console.log("LETRA")
-    // console.log(resp_letra.lyrics)
-
-    // console.log("ARTISTA")
-    // console.log(resp_artista);
-    // console.log(resp_letra.lyrics === null, resp_artista.artists === null)
-
     if(resp_letra.lyrics === null || resp_artista.artists === null){
       guardarError(true);
       return;
