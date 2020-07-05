@@ -85,7 +85,7 @@ function App() {
           
                 <Grid 
                   item xs={12} 
-                  sm={6} 
+                  sm={5} 
                   className={classes.gItem}
                 >
                   <Cancion
